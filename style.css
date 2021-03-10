@@ -1,0 +1,48 @@
+/* Base */
+html {
+  	overflow-x: hidden; }
+body{
+    height: 100%;
+    width: 100%;
+    display: block;
+    margin-top: 50px;
+}
+.list{
+	margin-left: 100px;
+	margin-right: 100px;
+}
+.card_t{
+    min-height: 480px;
+	display: -webkit-flex; /* Safari */		
+	display: flex; /* Standard syntax */
+}
+.card_t:hover,
+.card_t.active {
+	-webkit-box-shadow: 0 3px 7px 0 #a8a8a8; 
+  	-moz-box-shadow: 0 3px 7px 0 #a8a8a8; 
+	box-shadow: 0 1px 7px 0 #a8a8a8;
+}
+
+.product-img{
+	width: 100%;
+	height: 280px;
+	padding-top: 20px;
+	position: relative;
+}
+
+.details{
+	margin-top: 30px;
+ 	min-height: 80px;
+}
+.price{
+	position: absolute; 
+	bottom: 0px; 
+	margin-top: 5px;
+}
+.checked {
+  	color: orange;
+}
+
+.week_show{
+	font-size: 12px;
+}
