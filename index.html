@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+<div class="row">
+<div class="list">
+	<div id="showling_list">
+	</div>
+</div>
+</div>
+</div>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
+	$.ajax({
+	    type: "get",
+	    url: "list.json",
+	    dataType: "json",
+	    success: function(data) {
+	    	var html = ' ';
+	    	$.each(data, function(index) {
+				html += '<div class="col-md-3 card_t" id="card_'+data[index].id+'">';
+				html += '<div class="card"><div class="card-block">';
+				html += '<img class="product-img" src="'+data[index].image_url+'">';
+				html += '<div class="details">';
+				html += '<p>'+data[index].title+'</p>';
+				var week = new Date(data[index].created_at);
+				var weeks = getWeekNumber(week);
+				html += '<p class="week_show">'+weeks+' weeks ago</p>';
+				
+				var rate = '';
+				for($i = 1;$i <= 5;$i++) {
+					if(data[index].vote >= $i) {
+						rate += '<span class="fa fa-star checked"></span>';
+					}else {
+						rate += '<span class="fa fa-star"></span>';
+					}
+				}
+				html += '<div class="rating">'+rate;
+				html += '</div>';
+				html += '<div class="price">';
+				var price = formatter.format(data[index].price);
+				html += '<h4>'+price+'</h4>';
+				html += '</div>';
+				html += '</div>';
+				html += '</div></div></div>';
+	    	});
+	    	$('#showling_list').append(html);
+	    },
+	    error: function(){
+	        alert("Can't get data");
+	    }
+	});
+    
+    function getWeekNumber(d) {
+        d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+        d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay()||7));
+        var yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));
+        var weekNo = Math.ceil(( ( (d - yearStart) / 86400000) + 1)/7);
+        
+        return weekNo;
+    }
+    
+    var formatter = new Intl.NumberFormat('th-TH', {
+    	  style: 'currency',
+    	  currency: 'THB',
+    });
+
+</script>
+</body>
+</html>
+
